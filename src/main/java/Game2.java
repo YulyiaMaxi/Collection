@@ -1,26 +1,18 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class Game {
-    List<Player> players = new ArrayList<>();
+public class Game2 {
+    HashMap<String, Player> players = new HashMap<>();
 
     public void register(Player player) {
-        players.add(player);
+        players.put(player.getName(), player);// в отличие от коллекции arraylist здесь метод put
 
     }
 
     public int round(String playerName1, String playerName2) {
-        Player player1 = null; //кладем 2 игроков пока с значением по умолчанию, те null
-        Player player2 = null;
-
-        for (Player player : players) {
-            if (player.getName().equals(playerName1)) {
-                player1 = player;
-            }
-            if (player.getName().equals(playerName2)) {
-                player2 = player;
-            }
-        }
+        Player player1 = players.get(playerName1); //кладем сразу 2 игроков со значением их имени, которое вынимаем методом get
+        Player player2 = players.get (playerName2); // в отличие от arraylist, где мы сначала кладем пустые значения, а потом после перебора всех игроков, заполняем нужными значениями
 
         if (player1 == null) { //здесь именно самого игрока нет в списке регистрации, а не его имени
             throw new NotRegisteredException(playerName1);
@@ -40,6 +32,4 @@ public class Game {
         return 0;
     }
 
-
 }
-
